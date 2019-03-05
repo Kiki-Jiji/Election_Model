@@ -16,5 +16,5 @@ So far examineing just 2010-2015 as this is last full 5 year cycle. Does it make
 cycle and then add in more data? Other election cycles are coded differently, so will need different import/cleaning function and to merge
 the datasets they will need to be in a consistient format.
 
-##### If unsure on markdown quick guide
-[*guide*](https://guides.github.com/features/mastering-markdown/)
+##### If unsure on markdown quick [*guide*](https://guides.github.com/features/mastering-markdown/)
+
