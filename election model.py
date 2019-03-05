@@ -3,6 +3,7 @@ arr = os.listdir()
 arr
 
 import pandas as pd
+import matplotlib.pyplot as plt
 
 #Import Raw data
 raw_data = pd.read_excel("PollBase-Q4-2018.xls", sheet_name= "10-15")
@@ -37,6 +38,38 @@ print(str(xx) + " percentage of missing values is for both Lab and Con")
 #How many missing Values (sum counts all trues )
 print("There are " + str(data["Lab"].isnull().sum()) + " missing values")
 
+#removes all na values, data left is na free
+#data1 is now main dataset
 data1 = data.dropna(subset=["Lab"])
 
-data["Lab"].hist()
+#line plot
+
+plt.plot(data.loc[:, "Lab"])
+plt.plot(data.loc[:, "Con"])
+plt.legend()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
