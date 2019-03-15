@@ -6,8 +6,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+pd.__version__
+
 #Import Raw data
-raw_data = pd.read_excel("PollBase-Q4-2018.xls", sheet_name= "10-15")
+raw_data = pd.read_excel("PollBase-Q4-2018.xls", sheet_name= "10-15", 
+                         skipfooter= 4)
 
 #slice needed data
 full_data = raw_data.iloc[:, 0:17]
@@ -50,7 +53,7 @@ plt.plot(data.loc[:, "Con"])
 plt.legend()
 
 # Fix date
-#First year- need to copy year cell 
+#First year- need to copy year cell downwards 
 data1["Year"] = data1["Year"].replace(0, np.nan).ffill().astype(int)
 
 #there are missing values for published, whoch is the day, need to fill in as 
@@ -58,38 +61,27 @@ data1["Year"] = data1["Year"].replace(0, np.nan).ffill().astype(int)
 #the previous value)
 data1["Published"] = data1["Published"].fillna(method = "ffill")
 
-#that works to convert year to a data time
-# data1["Year"] = pd.to_datetime(data1["Year"], format = "%Y")
 
 #combines the columns together
-cols = ["Published", "Month", "Year"]
-data1["New"] = data1[cols].apply(lambda row: " ".join(row.values.astype(str)), axis=1)
+cols = ["Published", "Month", "Year",]
+data1["Date"] = data1[cols].apply(lambda row: " ".join(row.values.astype(str)), axis=1)
 
 
-""" The following seems broken!!
-Aim is to turn the column New into a string, then use panda function to_datetime
-to make the column into a datetime object, but it's not working!!
+""" The following works, ish,
+it does convert the date column to a datetime object, but throws up a warning
 
 use option to turn off SettingWithCopyWarning , bad idea! but don;t know
 why the error is generated 
+
+
+probably best not to use following line but option to deal with errors
+# pd.options.mode.chained_assignment = None
 """
 
-#probably best not to use following line
-# pd.options.mode.chained_assignment = None
-
-#should convert column to a string? not sure it does
-data1["New1"] = data1["New"].astype(str)
-
-
 # Should convert to datetime object, does not!
-data1["New"] = pd.to_datetime(data1["New"], format = "%d &b %Y")
+data1["Date"] = pd.to_datetime(data1["Date"], errors = "coerce")
 
-
-
-
-
-
-
+#Droping unnessary columns 
 
 
 
