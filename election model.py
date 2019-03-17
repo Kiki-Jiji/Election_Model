@@ -82,12 +82,8 @@ probably best not to use following line but option to deal with errors
 data1["Date"] = pd.to_datetime(data1["Date"], errors = "coerce")
 
 #Droping unnessary columns 
-
-
-
-
-
-
+col1 = [0,1,2,3]
+data1.drop(data1.columns[col1], axis=1, inplace=True)
 
 
 
