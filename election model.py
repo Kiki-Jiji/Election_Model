@@ -5,19 +5,16 @@ arr
 import pandas as pd
 import matplotlib.pyplot as plt
 
-#Import Raw data
-raw_data = pd.read_excel("PollBase-Q4-2018.xls", sheet_name= "10-15")
 
-#slice needed data
-full_data = raw_data.iloc[:, 0:17]
-
-#Drop columns of unnessasary data
+pd.options.display.max_rows=999
+pd.options.display.max_columns=999
 cols = [3,5,9,11,13,14,15]
-data = full_data.drop(full_data.columns[cols], axis=1, inplace = False)
 
-#Rename Columns
-data.columns = ['Year', 'Month', 'Fieldwork', 'Published', 'Polling', 'Publisher',
-       'Con', 'Lab', 'LD', 'Method_Collection']
+#Import Raw data
+df = pd.read_excel("PollBase-Q4-2018.xls", sheet_name= "10-15").iloc[:, 0:17]
+df= df.drop(df.columns[cols], axis=1, inplace = False ).rename(columns={'Unnamed: 16':'Method'}, index=str)
+
+
 
 """
 
@@ -31,22 +28,22 @@ values
 
 """
 #Checks whether NAN is always for labour and conservative
-x = data["Con"].isnull() == data["Lab"].isnull()
-xx = x.sum() / len(x) * 100
-print(str(xx) + " percentage of missing values is for both Lab and Con")
+#x = data["Con"].isnull() == data["Lab"].isnull()
+#xx = x.sum() / len(x) * 100
+#print(str(xx) + " percentage of missing values is for both Lab and Con")
 
 #How many missing Values (sum counts all trues )
-print("There are " + str(data["Lab"].isnull().sum()) + " missing values")
+#print("There are " + str(data["Lab"].isnull().sum()) + " missing values")
 
 #removes all na values, data left is na free
 #data1 is now main dataset
-data1 = data.dropna(subset=["Lab"])
+#data1 = data.dropna(subset=["Lab"])
 
 #line plot
 
-plt.plot(data.loc[:, "Lab"])
-plt.plot(data.loc[:, "Con"])
-plt.legend()
+#plt.plot(data.loc[:, "Lab"])
+#plt.plot(data.loc[:, "Con"])
+#plt.legend()
 
 
 
